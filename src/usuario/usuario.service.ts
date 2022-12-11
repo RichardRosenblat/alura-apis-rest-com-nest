@@ -19,6 +19,8 @@ export class UsuarioService {
 	}
 
 	public cria(usuario: Usuario): Usuario {
+		throw new Error("aaaaaaaaaaaaaaaaaa");
+		
 		this.usuarios.push(usuario);
 
 		return usuario;
