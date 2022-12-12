@@ -1,7 +1,8 @@
-import { Module, ClassSerializerInterceptor } from '@nestjs/common';
-import { UsuarioModule } from './usuario/usuario.module';
-import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { FitroDeExcecaoHttp } from './common/filtros/filtro-de-excecao-http.filter';
+import { TransformaRespostaInterceptor } from './core/http/transforma-resposta.interceptor';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [UsuarioModule],
@@ -14,7 +15,12 @@ import { FitroDeExcecaoHttp } from './common/filtros/filtro-de-excecao-http.filt
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor
-    }
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformaRespostaInterceptor
+    },
+
   ],
 })
 export class AppModule {}
